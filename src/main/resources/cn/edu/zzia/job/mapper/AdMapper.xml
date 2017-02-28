@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zzia.job.dao.IAdDao">
+  <resultMap id="BaseResultMap" type="cn.edu.zzia.job.domain.Ad">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="place" jdbcType="VARCHAR" property="place" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="picurl" jdbcType="VARCHAR" property="picurl" />
+    <result column="linkurl" jdbcType="VARCHAR" property="linkurl" />
+    <result column="intro" jdbcType="VARCHAR" property="intro" />
+    <result column="stime" jdbcType="TIMESTAMP" property="stime" />
+    <result column="etime" jdbcType="TIMESTAMP" property="etime" />
+    <result column="ifhide" jdbcType="INTEGER" property="ifhide" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.edu.zzia.job.domain.Ad">
+    <result column="remark" jdbcType="LONGVARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, place, title, picurl, linkurl, intro, stime, etime, ifhide, type
+  </sql>
+  <sql id="Blob_Column_List">
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_ad
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_ad
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.zzia.job.domain.Ad">
+    insert into tbl_ad (id, place, title, 
+      picurl, linkurl, intro, 
+      stime, etime, ifhide, 
+      type, remark)
+    values (#{id,jdbcType=INTEGER}, #{place,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{picurl,jdbcType=VARCHAR}, #{linkurl,jdbcType=VARCHAR}, #{intro,jdbcType=VARCHAR}, 
+      #{stime,jdbcType=TIMESTAMP}, #{etime,jdbcType=TIMESTAMP}, #{ifhide,jdbcType=INTEGER}, 
+      #{type,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.zzia.job.domain.Ad">
+    insert into tbl_ad
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="place != null">
+        place,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="picurl != null">
+        picurl,
+      </if>
+      <if test="linkurl != null">
+        linkurl,
+      </if>
+      <if test="intro != null">
+        intro,
+      </if>
+      <if test="stime != null">
+        stime,
+      </if>
+      <if test="etime != null">
+        etime,
+      </if>
+      <if test="ifhide != null">
+        ifhide,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="place != null">
+        #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="picurl != null">
+        #{picurl,jdbcType=VARCHAR},
+      </if>
+      <if test="linkurl != null">
+        #{linkurl,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null">
+        #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="stime != null">
+        #{stime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="etime != null">
+        #{etime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifhide != null">
+        #{ifhide,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zzia.job.domain.Ad">
+    update tbl_ad
+    <set>
+      <if test="place != null">
+        place = #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="picurl != null">
+        picurl = #{picurl,jdbcType=VARCHAR},
+      </if>
+      <if test="linkurl != null">
+        linkurl = #{linkurl,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null">
+        intro = #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="stime != null">
+        stime = #{stime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="etime != null">
+        etime = #{etime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifhide != null">
+        ifhide = #{ifhide,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.edu.zzia.job.domain.Ad">
+    update tbl_ad
+    set place = #{place,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      picurl = #{picurl,jdbcType=VARCHAR},
+      linkurl = #{linkurl,jdbcType=VARCHAR},
+      intro = #{intro,jdbcType=VARCHAR},
+      stime = #{stime,jdbcType=TIMESTAMP},
+      etime = #{etime,jdbcType=TIMESTAMP},
+      ifhide = #{ifhide,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.zzia.job.domain.Ad">
+    update tbl_ad
+    set place = #{place,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      picurl = #{picurl,jdbcType=VARCHAR},
+      linkurl = #{linkurl,jdbcType=VARCHAR},
+      intro = #{intro,jdbcType=VARCHAR},
+      stime = #{stime,jdbcType=TIMESTAMP},
+      etime = #{etime,jdbcType=TIMESTAMP},
+      ifhide = #{ifhide,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

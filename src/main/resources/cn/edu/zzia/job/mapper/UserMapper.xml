@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zzia.job.dao.IUserDao">
+  <resultMap id="BaseResultMap" type="cn.edu.zzia.job.domain.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="regtime" jdbcType="TIMESTAMP" property="regtime" />
+    <result column="ifuse" jdbcType="INTEGER" property="ifuse" />
+    <result column="logintimes" jdbcType="INTEGER" property="logintimes" />
+    <result column="lasttime" jdbcType="TIMESTAMP" property="lasttime" />
+    <result column="lastip" jdbcType="VARCHAR" property="lastip" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, username, password, type, regtime, ifuse, logintimes, lasttime, lastip
+  </sql>
+  
+  
+  <select id="selectUserByUsernameAndPassword" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_user
+    where username = #{username,jdbcType=VARCHAR}
+    and password = #{password,jdbcType=VARCHAR}
+    and type = #{type,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectUserByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_user
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.zzia.job.domain.User">
+    insert into tbl_user (id, username, password, 
+      type, regtime, ifuse, 
+      logintimes, lasttime, lastip
+      )
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{regtime,jdbcType=TIMESTAMP}, #{ifuse,jdbcType=INTEGER}, 
+      #{logintimes,jdbcType=INTEGER}, #{lasttime,jdbcType=TIMESTAMP}, #{lastip,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.zzia.job.domain.User">
+  	<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+  		select LAST_INSERT_ID()
+  	</selectKey>
+    insert into tbl_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="regtime != null">
+        regtime,
+      </if>
+      <if test="ifuse != null">
+        ifuse,
+      </if>
+      <if test="logintimes != null">
+        logintimes,
+      </if>
+      <if test="lasttime != null">
+        lasttime,
+      </if>
+      <if test="lastip != null">
+        lastip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="regtime != null">
+        #{regtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifuse != null">
+        #{ifuse,jdbcType=INTEGER},
+      </if>
+      <if test="logintimes != null">
+        #{logintimes,jdbcType=INTEGER},
+      </if>
+      <if test="lasttime != null">
+        #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastip != null">
+        #{lastip,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zzia.job.domain.User">
+    update tbl_user
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="regtime != null">
+        regtime = #{regtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifuse != null">
+        ifuse = #{ifuse,jdbcType=INTEGER},
+      </if>
+      <if test="logintimes != null">
+        logintimes = #{logintimes,jdbcType=INTEGER},
+      </if>
+      <if test="lasttime != null">
+        lasttime = #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastip != null">
+        lastip = #{lastip,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.zzia.job.domain.User">
+    update tbl_user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      regtime = #{regtime,jdbcType=TIMESTAMP},
+      ifuse = #{ifuse,jdbcType=INTEGER},
+      logintimes = #{logintimes,jdbcType=INTEGER},
+      lasttime = #{lasttime,jdbcType=TIMESTAMP},
+      lastip = #{lastip,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

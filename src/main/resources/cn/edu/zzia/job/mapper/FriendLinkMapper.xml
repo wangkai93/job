@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zzia.job.dao.IFriendLinkDao">
+  <resultMap id="BaseResultMap" type="cn.edu.zzia.job.domain.FriendLink">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="linkname" jdbcType="VARCHAR" property="linkname" />
+    <result column="linkurl" jdbcType="VARCHAR" property="linkurl" />
+    <result column="linkpic" jdbcType="VARCHAR" property="linkpic" />
+    <result column="intero" jdbcType="VARCHAR" property="intero" />
+    <result column="ifhide" jdbcType="INTEGER" property="ifhide" />
+    <result column="ordervalue" jdbcType="INTEGER" property="ordervalue" />
+    <result column="addtime" jdbcType="TIMESTAMP" property="addtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, linkname, linkurl, linkpic, intero, ifhide, ordervalue, addtime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_friendlink
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_friendlink
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.zzia.job.domain.FriendLink">
+    insert into tbl_friendlink (id, linkname, linkurl, 
+      linkpic, intero, ifhide, 
+      ordervalue, addtime)
+    values (#{id,jdbcType=INTEGER}, #{linkname,jdbcType=VARCHAR}, #{linkurl,jdbcType=VARCHAR}, 
+      #{linkpic,jdbcType=VARCHAR}, #{intero,jdbcType=VARCHAR}, #{ifhide,jdbcType=INTEGER}, 
+      #{ordervalue,jdbcType=INTEGER}, #{addtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.zzia.job.domain.FriendLink">
+    insert into tbl_friendlink
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="linkname != null">
+        linkname,
+      </if>
+      <if test="linkurl != null">
+        linkurl,
+      </if>
+      <if test="linkpic != null">
+        linkpic,
+      </if>
+      <if test="intero != null">
+        intero,
+      </if>
+      <if test="ifhide != null">
+        ifhide,
+      </if>
+      <if test="ordervalue != null">
+        ordervalue,
+      </if>
+      <if test="addtime != null">
+        addtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="linkname != null">
+        #{linkname,jdbcType=VARCHAR},
+      </if>
+      <if test="linkurl != null">
+        #{linkurl,jdbcType=VARCHAR},
+      </if>
+      <if test="linkpic != null">
+        #{linkpic,jdbcType=VARCHAR},
+      </if>
+      <if test="intero != null">
+        #{intero,jdbcType=VARCHAR},
+      </if>
+      <if test="ifhide != null">
+        #{ifhide,jdbcType=INTEGER},
+      </if>
+      <if test="ordervalue != null">
+        #{ordervalue,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zzia.job.domain.FriendLink">
+    update tbl_friendlink
+    <set>
+      <if test="linkname != null">
+        linkname = #{linkname,jdbcType=VARCHAR},
+      </if>
+      <if test="linkurl != null">
+        linkurl = #{linkurl,jdbcType=VARCHAR},
+      </if>
+      <if test="linkpic != null">
+        linkpic = #{linkpic,jdbcType=VARCHAR},
+      </if>
+      <if test="intero != null">
+        intero = #{intero,jdbcType=VARCHAR},
+      </if>
+      <if test="ifhide != null">
+        ifhide = #{ifhide,jdbcType=INTEGER},
+      </if>
+      <if test="ordervalue != null">
+        ordervalue = #{ordervalue,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.zzia.job.domain.FriendLink">
+    update tbl_friendlink
+    set linkname = #{linkname,jdbcType=VARCHAR},
+      linkurl = #{linkurl,jdbcType=VARCHAR},
+      linkpic = #{linkpic,jdbcType=VARCHAR},
+      intero = #{intero,jdbcType=VARCHAR},
+      ifhide = #{ifhide,jdbcType=INTEGER},
+      ordervalue = #{ordervalue,jdbcType=INTEGER},
+      addtime = #{addtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

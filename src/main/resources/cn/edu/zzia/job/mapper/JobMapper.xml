@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zzia.job.dao.IJobDao">
+  <resultMap id="BaseResultMap" type="cn.edu.zzia.job.domain.Job">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="need" jdbcType="VARCHAR" property="need" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="danwei" jdbcType="VARCHAR" property="danwei" />
+    <result column="linkman" jdbcType="VARCHAR" property="linkman" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="place" jdbcType="VARCHAR" property="place" />
+    <result column="pay" jdbcType="VARCHAR" property="pay" />
+    <result column="yxq" jdbcType="INTEGER" property="yxq" />
+    <result column="member" jdbcType="VARCHAR" property="member" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="addtime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="ifhide" jdbcType="INTEGER" property="ifhide" />
+    <result column="visit" jdbcType="INTEGER" property="visit" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.edu.zzia.job.domain.Job">
+    <result column="otherneed" jdbcType="LONGVARCHAR" property="otherneed" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, need, num, danwei, linkman, tel, place, pay, yxq, member, type, addtime, ifhide, 
+    visit
+  </sql>
+  <sql id="Blob_Column_List">
+    otherneed
+  </sql>
+  
+   <select id="getJobByUsername" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_job
+    where member = #{username,jdbcType=VARCHAR}
+    order by id desc
+  </select>
+   <select id="getByConditionPage" parameterType="page" resultMap="ResultMapWithBLOBs">
+    select 
+   	id,danwei,need,num,tel,place,addtime 
+    from tbl_job 
+    order by addtime desc
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_job
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_job
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.zzia.job.domain.Job">
+    insert into tbl_job (id, need, num, 
+      danwei, linkman, tel, 
+      place, pay, yxq, member, 
+      type, addtime, ifhide, 
+      visit, otherneed)
+    values (#{id,jdbcType=INTEGER}, #{need,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}, 
+      #{danwei,jdbcType=VARCHAR}, #{linkman,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
+      #{place,jdbcType=VARCHAR}, #{pay,jdbcType=VARCHAR}, #{yxq,jdbcType=INTEGER}, #{member,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, #{ifhide,jdbcType=INTEGER}, 
+      #{visit,jdbcType=INTEGER}, #{otherneed,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.zzia.job.domain.Job">
+    insert into tbl_job
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="need != null">
+        need,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="danwei != null">
+        danwei,
+      </if>
+      <if test="linkman != null">
+        linkman,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="place != null">
+        place,
+      </if>
+      <if test="pay != null">
+        pay,
+      </if>
+      <if test="yxq != null">
+        yxq,
+      </if>
+      <if test="member != null">
+        member,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="addtime != null">
+        addtime,
+      </if>
+      <if test="ifhide != null">
+        ifhide,
+      </if>
+      <if test="visit != null">
+        visit,
+      </if>
+      <if test="otherneed != null">
+        otherneed,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="need != null">
+        #{need,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="danwei != null">
+        #{danwei,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null">
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null">
+        #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="pay != null">
+        #{pay,jdbcType=VARCHAR},
+      </if>
+      <if test="yxq != null">
+        #{yxq,jdbcType=INTEGER},
+      </if>
+      <if test="member != null">
+        #{member,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifhide != null">
+        #{ifhide,jdbcType=INTEGER},
+      </if>
+      <if test="visit != null">
+        #{visit,jdbcType=INTEGER},
+      </if>
+      <if test="otherneed != null">
+        #{otherneed,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zzia.job.domain.Job">
+    update tbl_job
+    <set>
+      <if test="need != null">
+        need = #{need,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="danwei != null">
+        danwei = #{danwei,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null">
+        linkman = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null">
+        place = #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="pay != null">
+        pay = #{pay,jdbcType=VARCHAR},
+      </if>
+      <if test="yxq != null">
+        yxq = #{yxq,jdbcType=INTEGER},
+      </if>
+      <if test="member != null">
+        member = #{member,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifhide != null">
+        ifhide = #{ifhide,jdbcType=INTEGER},
+      </if>
+      <if test="visit != null">
+        visit = #{visit,jdbcType=INTEGER},
+      </if>
+      <if test="otherneed != null">
+        otherneed = #{otherneed,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.edu.zzia.job.domain.Job">
+    update tbl_job
+    set need = #{need,jdbcType=VARCHAR},
+      num = #{num,jdbcType=INTEGER},
+      danwei = #{danwei,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR},
+      pay = #{pay,jdbcType=VARCHAR},
+      yxq = #{yxq,jdbcType=INTEGER},
+      member = #{member,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      ifhide = #{ifhide,jdbcType=INTEGER},
+      visit = #{visit,jdbcType=INTEGER},
+      otherneed = #{otherneed,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.zzia.job.domain.Job">
+    update tbl_job
+    set need = #{need,jdbcType=VARCHAR},
+      num = #{num,jdbcType=INTEGER},
+      danwei = #{danwei,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR},
+      pay = #{pay,jdbcType=VARCHAR},
+      yxq = #{yxq,jdbcType=INTEGER},
+      member = #{member,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      ifhide = #{ifhide,jdbcType=INTEGER},
+      visit = #{visit,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

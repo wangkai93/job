@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zzia.job.dao.IGuestBookDao">
+  <resultMap id="BaseResultMap" type="cn.edu.zzia.job.domain.GuestBook">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="pic" jdbcType="VARCHAR" property="pic" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="weburl" jdbcType="VARCHAR" property="weburl" />
+    <result column="blogurl" jdbcType="VARCHAR" property="blogurl" />
+    <result column="expressions" jdbcType="VARCHAR" property="expressions" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="addtime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="replay" jdbcType="INTEGER" property="replay" />
+    <result column="ifhide" jdbcType="INTEGER" property="ifhide" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, nickname, pic, email, qq, weburl, blogurl, expressions, content, addtime, ip, 
+    replay, ifhide
+  </sql>
+  
+  <select id="getByConditionPage" parameterType="page" resultMap="BaseResultMap">
+    select 
+    id,nickname,content 
+    from tbl_guestbook
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_guestbook
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_guestbook
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.zzia.job.domain.GuestBook">
+    insert into tbl_guestbook (id, nickname, pic, 
+      email, qq, weburl, 
+      blogurl, expressions, content, 
+      addtime, ip, replay, 
+      ifhide)
+    values (#{id,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{weburl,jdbcType=VARCHAR}, 
+      #{blogurl,jdbcType=VARCHAR}, #{expressions,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{addtime,jdbcType=TIMESTAMP}, #{ip,jdbcType=VARCHAR}, #{replay,jdbcType=INTEGER}, 
+      #{ifhide,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.zzia.job.domain.GuestBook">
+    insert into tbl_guestbook
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="pic != null">
+        pic,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="qq != null">
+        qq,
+      </if>
+      <if test="weburl != null">
+        weburl,
+      </if>
+      <if test="blogurl != null">
+        blogurl,
+      </if>
+      <if test="expressions != null">
+        expressions,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="addtime != null">
+        addtime,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="replay != null">
+        replay,
+      </if>
+      <if test="ifhide != null">
+        ifhide,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null">
+        #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="weburl != null">
+        #{weburl,jdbcType=VARCHAR},
+      </if>
+      <if test="blogurl != null">
+        #{blogurl,jdbcType=VARCHAR},
+      </if>
+      <if test="expressions != null">
+        #{expressions,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="replay != null">
+        #{replay,jdbcType=INTEGER},
+      </if>
+      <if test="ifhide != null">
+        #{ifhide,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zzia.job.domain.GuestBook">
+    update tbl_guestbook
+    <set>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null">
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="weburl != null">
+        weburl = #{weburl,jdbcType=VARCHAR},
+      </if>
+      <if test="blogurl != null">
+        blogurl = #{blogurl,jdbcType=VARCHAR},
+      </if>
+      <if test="expressions != null">
+        expressions = #{expressions,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="replay != null">
+        replay = #{replay,jdbcType=INTEGER},
+      </if>
+      <if test="ifhide != null">
+        ifhide = #{ifhide,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.zzia.job.domain.GuestBook">
+    update tbl_guestbook
+    set nickname = #{nickname,jdbcType=VARCHAR},
+      pic = #{pic,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      weburl = #{weburl,jdbcType=VARCHAR},
+      blogurl = #{blogurl,jdbcType=VARCHAR},
+      expressions = #{expressions,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      ip = #{ip,jdbcType=VARCHAR},
+      replay = #{replay,jdbcType=INTEGER},
+      ifhide = #{ifhide,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

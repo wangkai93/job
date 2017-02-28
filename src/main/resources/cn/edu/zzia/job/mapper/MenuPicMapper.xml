@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zzia.job.dao.IMenuPicDao">
+  <resultMap id="BaseResultMap" type="cn.edu.zzia.job.domain.MenuPic">
+    <result column="isoff" jdbcType="INTEGER" property="isoff" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.edu.zzia.job.domain.MenuPic">
+    insert into tbl_menupic (isoff)
+    values (#{isoff,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.zzia.job.domain.MenuPic">
+    insert into tbl_menupic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="isoff != null">
+        isoff,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="isoff != null">
+        #{isoff,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

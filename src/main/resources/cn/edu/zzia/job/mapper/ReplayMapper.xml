@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zzia.job.dao.IReplayDao">
+  <resultMap id="BaseResultMap" type="cn.edu.zzia.job.domain.Replay">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mid" jdbcType="INTEGER" property="mid" />
+    <result column="replay" jdbcType="VARCHAR" property="replay" />
+    <result column="replayer" jdbcType="VARCHAR" property="replayer" />
+    <result column="replaytime" jdbcType="TIMESTAMP" property="replaytime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, mid, replay, replayer, replaytime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_replay
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_replay
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.zzia.job.domain.Replay">
+    insert into tbl_replay (id, mid, replay, 
+      replayer, replaytime)
+    values (#{id,jdbcType=INTEGER}, #{mid,jdbcType=INTEGER}, #{replay,jdbcType=VARCHAR}, 
+      #{replayer,jdbcType=VARCHAR}, #{replaytime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.zzia.job.domain.Replay">
+    insert into tbl_replay
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mid != null">
+        mid,
+      </if>
+      <if test="replay != null">
+        replay,
+      </if>
+      <if test="replayer != null">
+        replayer,
+      </if>
+      <if test="replaytime != null">
+        replaytime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mid != null">
+        #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="replay != null">
+        #{replay,jdbcType=VARCHAR},
+      </if>
+      <if test="replayer != null">
+        #{replayer,jdbcType=VARCHAR},
+      </if>
+      <if test="replaytime != null">
+        #{replaytime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zzia.job.domain.Replay">
+    update tbl_replay
+    <set>
+      <if test="mid != null">
+        mid = #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="replay != null">
+        replay = #{replay,jdbcType=VARCHAR},
+      </if>
+      <if test="replayer != null">
+        replayer = #{replayer,jdbcType=VARCHAR},
+      </if>
+      <if test="replaytime != null">
+        replaytime = #{replaytime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.zzia.job.domain.Replay">
+    update tbl_replay
+    set mid = #{mid,jdbcType=INTEGER},
+      replay = #{replay,jdbcType=VARCHAR},
+      replayer = #{replayer,jdbcType=VARCHAR},
+      replaytime = #{replaytime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

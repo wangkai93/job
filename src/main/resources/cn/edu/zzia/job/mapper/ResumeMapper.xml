@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zzia.job.dao.IResumeDao">
+  <resultMap id="BaseResultMap" type="cn.edu.zzia.job.domain.Resume">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="job" jdbcType="VARCHAR" property="job" />
+    <result column="pay" jdbcType="VARCHAR" property="pay" />
+    <result column="school" jdbcType="VARCHAR" property="school" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="sheng" jdbcType="VARCHAR" property="sheng" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="linkman" jdbcType="VARCHAR" property="linkman" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="yxq" jdbcType="INTEGER" property="yxq" />
+    <result column="member" jdbcType="VARCHAR" property="member" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="addtime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="ifhide" jdbcType="INTEGER" property="ifhide" />
+    <result column="visit" jdbcType="INTEGER" property="visit" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.edu.zzia.job.domain.Resume">
+    <result column="intro" jdbcType="LONGVARCHAR" property="intro" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, job, pay, school, sex, age, sheng, city, linkman, tel, yxq, member, type, addtime, 
+    ifhide, visit, email
+  </sql>
+  <sql id="Blob_Column_List">
+    intro
+  </sql>
+  
+   <select id="getResumeByUsername" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_resume
+    where member = #{username,jdbcType=VARCHAR} 
+    order by id desc
+  </select>
+  
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_resume
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getByConditionPage" parameterType="page" resultMap="ResultMapWithBLOBs">
+    select 
+    id,linkman,job,pay,school,tel,addtime 
+    from tbl_resume
+    order by addtime desc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_resume
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.zzia.job.domain.Resume">
+    insert into tbl_resume (id, job, pay, 
+      school, sex, age, sheng, 
+      city, linkman, tel, 
+      yxq, member, type, 
+      addtime, ifhide, visit, 
+      email, intro)
+    values (#{id,jdbcType=INTEGER}, #{job,jdbcType=VARCHAR}, #{pay,jdbcType=VARCHAR}, 
+      #{school,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{sheng,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{linkman,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
+      #{yxq,jdbcType=INTEGER}, #{member,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{addtime,jdbcType=TIMESTAMP}, #{ifhide,jdbcType=INTEGER}, #{visit,jdbcType=INTEGER}, 
+      #{email,jdbcType=VARCHAR}, #{intro,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.zzia.job.domain.Resume">
+    insert into tbl_resume
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="job != null">
+        job,
+      </if>
+      <if test="pay != null">
+        pay,
+      </if>
+      <if test="school != null">
+        school,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="sheng != null">
+        sheng,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="linkman != null">
+        linkman,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="yxq != null">
+        yxq,
+      </if>
+      <if test="member != null">
+        member,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="addtime != null">
+        addtime,
+      </if>
+      <if test="ifhide != null">
+        ifhide,
+      </if>
+      <if test="visit != null">
+        visit,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="intro != null">
+        intro,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="job != null">
+        #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="pay != null">
+        #{pay,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null">
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sheng != null">
+        #{sheng,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null">
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="yxq != null">
+        #{yxq,jdbcType=INTEGER},
+      </if>
+      <if test="member != null">
+        #{member,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifhide != null">
+        #{ifhide,jdbcType=INTEGER},
+      </if>
+      <if test="visit != null">
+        #{visit,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null">
+        #{intro,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zzia.job.domain.Resume">
+    update tbl_resume
+    <set>
+      <if test="job != null">
+        job = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="pay != null">
+        pay = #{pay,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null">
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sheng != null">
+        sheng = #{sheng,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null">
+        linkman = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="yxq != null">
+        yxq = #{yxq,jdbcType=INTEGER},
+      </if>
+      <if test="member != null">
+        member = #{member,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifhide != null">
+        ifhide = #{ifhide,jdbcType=INTEGER},
+      </if>
+      <if test="visit != null">
+        visit = #{visit,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null">
+        intro = #{intro,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.edu.zzia.job.domain.Resume">
+    update tbl_resume
+    set job = #{job,jdbcType=VARCHAR},
+      pay = #{pay,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      sheng = #{sheng,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      yxq = #{yxq,jdbcType=INTEGER},
+      member = #{member,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      ifhide = #{ifhide,jdbcType=INTEGER},
+      visit = #{visit,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
+      intro = #{intro,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.zzia.job.domain.Resume">
+    update tbl_resume
+    set job = #{job,jdbcType=VARCHAR},
+      pay = #{pay,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      sheng = #{sheng,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      yxq = #{yxq,jdbcType=INTEGER},
+      member = #{member,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      ifhide = #{ifhide,jdbcType=INTEGER},
+      visit = #{visit,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
