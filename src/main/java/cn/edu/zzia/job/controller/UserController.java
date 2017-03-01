@@ -17,6 +17,7 @@ import cn.edu.zzia.job.service.IStudentService;
 import cn.edu.zzia.job.service.IUserService;
 import cn.edu.zzia.job.util.MD5keyBean;
 import cn.edu.zzia.job.util.SessionUtils;
+import cn.edu.zzia.job.util.StringUtil;
 
 @Controller
 @RequestMapping("/user")
@@ -86,6 +87,41 @@ public class UserController {
 		
 		int result = companyService.updateByPrimaryKeySelective(company);
 		request.setAttribute("message", result == 1 ? "修改成功" : "修改失败");
+		return "message";
+	}
+	
+	@RequestMapping(value="/show/{id}/{type}",method=RequestMethod.GET)
+	public String showStu(@PathVariable("id")Integer id,@PathVariable("type")String type ,HttpServletRequest request){
+		if(StringUtil.isNotBlank(id + "") && StringUtil.isNotBlank(type)){
+			if(type.equals("person")){
+				Student stu = studentService.selectByPrimaryKey(id);
+				request.setAttribute("stu", stu);
+				return "admin/member/pminfo";
+			}else
+			{
+				Company com = companyService.selectByPrimaryKey(id);
+				request.setAttribute("com", com);
+				return "admin/member/cminfo";
+			}
+		}
+		return null;
+	}
+	@RequestMapping(value="/delete/{type}",method = RequestMethod.POST)
+	public String delete(@RequestParam("checkit")String[] checkit,@PathVariable("type")String type ,HttpServletRequest request){
+		if(StringUtil.isNotBlank(type)){
+			if(type.equals("person")){
+				if(null != checkit &&checkit.length > 0){
+					int result = studentService.deleteStudentByIds(checkit);
+					request.setAttribute("message", result >= 1 ? "删除成功！" : "删除失败");
+				}
+				
+			}else{
+				if(null != checkit &&checkit.length > 0){
+					int result = companyService.deleteCompanyByIds(checkit);
+					request.setAttribute("message", result >= 1 ? "删除成功！" : "删除失败");
+				}
+			}
+		}
 		return "message";
 	}
 

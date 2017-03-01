@@ -1,5 +1,7 @@
 package cn.edu.zzia.job.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.edu.zzia.job.domain.Admin;
-import cn.edu.zzia.job.domain.User;
+import cn.edu.zzia.job.domain.Company;
+import cn.edu.zzia.job.domain.Job;
+import cn.edu.zzia.job.domain.Resume;
+import cn.edu.zzia.job.domain.Student;
 import cn.edu.zzia.job.service.IAdminService;
 import cn.edu.zzia.job.service.ICompanyService;
 import cn.edu.zzia.job.service.IJobService;
@@ -39,32 +44,34 @@ public class AdminController {
 	
 	
 	@RequestMapping("/studentManage")
-	public String studentManage(){
+	public String studentManage(HttpServletRequest request){
 		
+		List<Student> stuList = studentService.getByConditionPage(new Student());
 		
-		return "";
+		request.setAttribute("stuList", stuList);
+		return "admin/member/person";
 	}
 	
 	@RequestMapping("/companyManage")
-	public String companyManage(){
-		
-		
-		return "";
+	public String companyManage(HttpServletRequest request){
+		List<Company> comList = companyService.getByConditionPage(new Company());
+		request.setAttribute("comList", comList);
+		return "admin/member/co";
 	}
 	
 	
 	@RequestMapping("/jobManage")
-	public String jobManage(){
-		
-		
-		return "";
+	public String jobManage(HttpServletRequest request){
+		List<Job> jobList = jobService.getByConditionPage(new Job());
+		request.setAttribute("jobList", jobList);
+		return "admin/info/index";
 	}
 	
 	@RequestMapping("/resumeManage")
-	public String resumeManage(){
-		
-		
-		return "";
+	public String resumeManage(HttpServletRequest request){
+		List<Resume> resumeList = resumeService.getByConditionPage(new Resume());
+		request.setAttribute("resumeList", resumeList);
+		return "admin/info/default";
 	}
 	
 	@RequestMapping("/newsManage")

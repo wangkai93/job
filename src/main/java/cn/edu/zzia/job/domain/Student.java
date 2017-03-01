@@ -1,113 +1,123 @@
 package cn.edu.zzia.job.domain;
 
-public class Student extends User{
-    private Integer id;
+public class Student extends User {
+	private Integer id;
 
-    private Integer mid;
+	private Integer mid;
 
-    private String realname;
+	private String realname;
 
-    private String sex;
+	private String sex;
 
-    private String bir;
+	private String bir;
 
-    private String sheng;
+	private String sheng;
 
-    private String city;
+	private String city;
 
-    private String telphone;
+	private String telphone;
 
-    private String email;
+	private String email;
 
-    private String question;
+	private String question;
 
-    private String answer;
+	private String answer;
 
-    public Integer getId() {
-        return id;
-    }
+	private Page<Student> page;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Page<Student> getPage() {
+		return page;
+	}
 
-    public Integer getMid() {
-        return mid;
-    }
+	public void setPage(Page<Student> page) {
+		this.page = page;
+	}
 
-    public void setMid(Integer mid) {
-        this.mid = mid;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getRealname() {
-        return realname;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setRealname(String realname) {
-        this.realname = realname == null ? null : realname.trim();
-    }
+	public Integer getMid() {
+		return mid;
+	}
 
-    public String getSex() {
-        return sex;
-    }
+	public void setMid(Integer mid) {
+		this.mid = mid;
+	}
 
-    public void setSex(String sex) {
-        this.sex = sex == null ? null : sex.trim();
-    }
+	public String getRealname() {
+		return realname;
+	}
 
-    public String getBir() {
-        return bir;
-    }
+	public void setRealname(String realname) {
+		this.realname = realname == null ? null : realname.trim();
+	}
 
-    public void setBir(String bir) {
-        this.bir = bir == null ? null : bir.trim();
-    }
+	public String getSex() {
+		return sex;
+	}
 
-    public String getSheng() {
-        return sheng;
-    }
+	public void setSex(String sex) {
+		this.sex = sex == null ? null : sex.trim();
+	}
 
-    public void setSheng(String sheng) {
-        this.sheng = sheng == null ? null : sheng.trim();
-    }
+	public String getBir() {
+		return bir;
+	}
 
-    public String getCity() {
-        return city;
-    }
+	public void setBir(String bir) {
+		this.bir = bir == null ? null : bir.trim();
+	}
 
-    public void setCity(String city) {
-        this.city = city == null ? null : city.trim();
-    }
+	public String getSheng() {
+		return sheng;
+	}
 
-    public String getTelphone() {
-        return telphone;
-    }
+	public void setSheng(String sheng) {
+		this.sheng = sheng == null ? null : sheng.trim();
+	}
 
-    public void setTelphone(String telphone) {
-        this.telphone = telphone == null ? null : telphone.trim();
-    }
+	public String getCity() {
+		return city;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setCity(String city) {
+		this.city = city == null ? null : city.trim();
+	}
 
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
-    }
+	public String getTelphone() {
+		return telphone;
+	}
 
-    public String getQuestion() {
-        return question;
-    }
+	public void setTelphone(String telphone) {
+		this.telphone = telphone == null ? null : telphone.trim();
+	}
 
-    public void setQuestion(String question) {
-        this.question = question == null ? null : question.trim();
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getAnswer() {
-        return answer;
-    }
+	public void setEmail(String email) {
+		this.email = email == null ? null : email.trim();
+	}
 
-    public void setAnswer(String answer) {
-        this.answer = answer == null ? null : answer.trim();
-    }
+	public String getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(String question) {
+		this.question = question == null ? null : question.trim();
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer == null ? null : answer.trim();
+	}
 }

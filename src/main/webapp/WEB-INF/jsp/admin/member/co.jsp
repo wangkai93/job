@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*"  contentType="text/html;charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <HTML><HEAD><TITLE>后台操作区</TITLE>
 <LINK href="${pageContext.request.contextPath }/css/Admin_Style.css" type=text/css rel=stylesheet>
 <SCRIPT language=JavaScript src="${pageContext.request.contextPath }/js/Common.js"></SCRIPT>
@@ -11,6 +13,14 @@ BODY {
 </STYLE>
 </HEAD>
 <script  language="javascript" >
+
+function allch()
+{
+	for(i=0;i<${fn:length(comList)};i++)
+	{
+		document.pageform.checkit[i].checked=document.pageform.checkall.checked;
+	}
+}
 function top(){
    	form3.action="/member/co.jsp?page=1";
     form3.submit();
@@ -142,28 +152,24 @@ function ts()
 			<TD>上次登陆IP</TD>
 			<TD>选择</TD>
 		  </TR>
-	<script type="text/JavaScript">
-	function allch()
-	{
-		for(i=0;i<<%=pagelist3.size()%>;i++)
-		{
-			document.pageform.checkit(i).checked=document.pageform.checkall.checked;
-		}
-	}
-	</script>
-		 <form action="MemberManage.shtml?method=DELCO" method="post" name="pageform">
-		  <TR align="center" bgColor=#ffffff>
-		    <TD id=map></TD>
-			<TD id=map>
-			<a title="点击查看详细信息" href="javascript:" onclick="window.showModelessDialog('/member/cminfo.jsp?id=','newwin','dialogHeight:400px;   dialogWidth:   600px;   dialogTop:0px;   dialogLeft:   5px;   edge:   Raised;   center:   Yes;   help:   Yes;   resizable:   Yes;   status:yes;');">					
-			</a>
-			</TD>
-			<TD id=map></TD>
-			<TD id=map></TD>
-			<TD id=map></TD>
-			<TD id=map></TD>
-			<TD id=map><input type="checkbox" name="checkit" value=""></TD>
-		  </TR>
+		 <form action="${pageContext.request.contextPath }/user/delete/co" method="post" name="pageform">
+		 <c:if test="${! empty comList }">
+		 	<c:forEach items="${comList }" var="com">
+				  <TR align="center" bgColor=#ffffff>
+				    <TD id=map>${com.id }</TD>
+					<TD id=map>
+					<a title="点击查看详细信息" href="javascript()" onclick="window.open('${pageContext.request.contextPath }/user/show/${com.id}/co','newwin','dialogHeight:400px;   dialogWidth:   600px;   dialogTop:0px;   dialogLeft:   5px;   edge:   Raised;   center:   Yes;   help:   Yes;   resizable:   Yes;   status:yes;');">					
+						${com.coname }
+					</a>
+					</TD>
+					<TD id=map>${com.regtime }</TD>
+					<TD id=map>${com.logintimes }</TD>
+					<TD id=map>${com.lasttime }</TD>
+					<TD id=map>${com.lastip }</TD>
+					<TD id=map><input type="checkbox" name="checkit" value="${com.id }###${com.mid}"></TD>
+				  </TR>
+		  	</c:forEach>
+		 </c:if>
 		  <TR align="right" >
 			 <TD colspan="8" id=map>
 			 <input type="checkbox" name="checkall" onClick="allch()" >&nbsp;全选

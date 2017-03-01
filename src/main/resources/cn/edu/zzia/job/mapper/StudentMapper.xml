@@ -18,6 +18,14 @@
     id, mid, realname, sex, bir, sheng, city, telphone, email, question, answer
   </sql>
   
+   <select id="getByConditionPage" parameterType="page" resultMap="BaseResultMap">
+    select 
+    a.id,a.realname,a.mid,b.regtime,b.logintimes,b.lasttime,b.lastip 
+    from tbl_student a,tbl_user b 
+    where a.mid = b.id
+    order by id desc 
+  </select>
+  
   <select id="selectStudentByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     a.* 

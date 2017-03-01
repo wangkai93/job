@@ -22,6 +22,15 @@
     intro
   </sql>
   
+   <select id="getByConditionPage" parameterType="page" resultMap="ResultMapWithBLOBs">
+    select 
+    a.id,a.coname,a.mid,b.regtime,b.logintimes,b.lasttime,b.lastip 
+   from tbl_company a,tbl_user b 
+    where a.mid = b.id
+    order by id desc 
+  </select>
+  
+  
    <select id="selectCompanyByUserId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     a.* 
