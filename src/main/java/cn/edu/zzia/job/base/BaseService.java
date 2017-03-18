@@ -6,8 +6,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import cn.edu.zzia.job.domain.Page;
-
 public class BaseService<E> implements IBaseService<E> {
 
 	private IBaseDao<E> baseDao = null;

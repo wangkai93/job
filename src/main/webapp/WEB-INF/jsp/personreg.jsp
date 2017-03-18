@@ -58,7 +58,7 @@
 										name="sheng" id="sheng"
 										onchange="ProvinceChange(this, regform.city)">
 											<option selected="selected" value="">-请选择-</option>
-											<option value="北京">北京</option>
+											<option ${province.name == 'bj' ? "selected" : ""} value="北京">北京</option>
 											<option value="天津">天津</option>
 											<option value="辽宁">辽宁</option>
 											<option value="吉林">吉林</option>
