@@ -239,7 +239,7 @@ function checkpersonreg() {
 		document.regform.city.focus();
 		return false;
 	}
-	if (document.regform.tel.value.replace(/\s+$|^\s+/g, "").length < 7) {
+	if (document.regform.telphone.value.replace(/\s+$|^\s+/g, "").length < 7) {
 		alert("\请正确填写您的联系电话，号码在七位以上，只能为数字！");
 		document.regform.tel.focus();
 		return false;

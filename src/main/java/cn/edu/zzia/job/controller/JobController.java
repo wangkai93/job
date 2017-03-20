@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.edu.zzia.job.domain.Job;
-import cn.edu.zzia.job.domain.Job;
 import cn.edu.zzia.job.domain.User;
 import cn.edu.zzia.job.service.IJobService;
 import cn.edu.zzia.job.util.SessionUtils;
@@ -22,27 +21,23 @@ import cn.edu.zzia.job.util.StringUtil;
 @Controller
 @RequestMapping("/job")
 public class JobController {
-	
+
 	@Resource(name = IJobService.SERVICE_NAME)
 	private IJobService jobService = null;
 
-	
-	
-	
-	@RequestMapping(value="/update/{id}",method = RequestMethod.GET)
-	public String updateJob(@PathVariable("id")Integer id,HttpServletRequest request){
-		if(StringUtil.isNotBlank(id + "")){
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
+	public String updateJob(@PathVariable("id") Integer id, HttpServletRequest request) {
+		if (StringUtil.isNotBlank(id + "")) {
 			Job job = jobService.selectByPrimaryKey(id);
 			request.setAttribute("job", job);
 			return "front_manager/job/update_job";
 		}
 		return null;
 	}
-	
-	
-	@RequestMapping(value="/update",method = RequestMethod.POST)
-	public String updateJob(Job job ,@RequestParam("id")Integer id,HttpServletRequest request){
-		if(StringUtil.isNotBlank(id + "")){
+
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String updateJob(Job job, @RequestParam("id") Integer id, HttpServletRequest request) {
+		if (StringUtil.isNotBlank(id + "")) {
 			job.setId(id);
 			jobService.updateByPrimaryKeySelective(job);
 			request.setAttribute("message", "修改成功！");
@@ -50,29 +45,26 @@ public class JobController {
 		}
 		return null;
 	}
-	
-	
-	@RequestMapping(value="/delete",method = RequestMethod.POST)
-	public String deleteResume(@RequestParam("checkit")Integer[] checkit,HttpServletRequest request){
-		if(null != checkit &&checkit.length > 0){
+
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public String deleteResume(@RequestParam("checkit") Integer[] checkit, HttpServletRequest request) {
+		if (null != checkit && checkit.length > 0) {
 			int result = jobService.deleteJobByIds(checkit);
 			request.setAttribute("message", result == 1 ? "删除成功！" : "删除失败");
 		}
 		return "message";
 	}
-	
-	
-	
-	@RequestMapping(value="/add",method=RequestMethod.GET)
-	public String addJob(){
+
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public String addJob() {
 		return "front_manager/job/job";
 	}
-	
-	@RequestMapping(value="/add",method=RequestMethod.POST)
-	public String addJob(Job job,HttpServletRequest request){
-		
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String addJob(Job job, HttpServletRequest request) {
+
 		User user = SessionUtils.getSysUserFormSession(request);
-		if(null == user){
+		if (null == user) {
 			return "redirect:login/toLogin";
 		}
 		try {
@@ -89,25 +81,21 @@ public class JobController {
 		}
 		return "front_manager/job/job";
 	}
-	
+
 	@RequestMapping("/manage")
-	public String getJobByType(HttpServletRequest request){
+	public String getJobByType(HttpServletRequest request) {
 		User user = SessionUtils.getSysUserFormSession(request);
-		if(null == user){
+		if (null == user) {
 			return "redirect:login/toLogin";
 		}
 		List<Job> jobList = jobService.getJobByUser(user.getUsername());
-		if(null != jobList && jobList.size() > 0){
-			request.setAttribute("jobList", jobList);			
-			return "front_manager/job/index";
-		}
-		return null;
+		request.setAttribute("jobList", jobList);
+		return "front_manager/job/index";
 	}
-	
-	
-	@RequestMapping(value="/show/{id}")
-	public String show(@PathVariable("id")String jobId,HttpServletRequest request){
-		if(StringUtil.isNotBlank(jobId)){
+
+	@RequestMapping(value = "/show/{id}")
+	public String show(@PathVariable("id") String jobId, HttpServletRequest request) {
+		if (StringUtil.isNotBlank(jobId)) {
 			Integer uuid = Integer.parseInt(jobId);
 			Job job = jobService.selectByPrimaryKey(uuid);
 			request.setAttribute("job", job);
@@ -115,11 +103,11 @@ public class JobController {
 		}
 		return null;
 	}
-	
+
 	@RequestMapping("/getjobs")
-	public String getPageJobs(HttpServletRequest request){
+	public String getPageJobs(HttpServletRequest request) {
 		List<Job> jobsList = jobService.getByConditionPage(new Job());
-		if(null != jobsList && jobsList.size() > 0){
+		if (null != jobsList && jobsList.size() > 0) {
 			request.setAttribute("jobsList", jobsList);
 			return "zhao";
 		}
